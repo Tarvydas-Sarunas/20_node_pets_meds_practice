@@ -26,7 +26,7 @@ const prescRoutes = require('./routes/prescRoutes');
 
 // panaudoju routes
 app.use('/v1/api/pets', petsRoutes);
-app.use('/', logsRoutes);
+app.use('/v1/api/logs', logsRoutes);
 app.use('/v1/api/meds', medsRoutes);
 app.use('/', prescRoutes);
 

@@ -31,7 +31,7 @@ petsRoutes.post('/', async (req, res) => {
     return;
   }
   if (rezObj.affectedRows === 1) {
-    res.status(200).json({ msg: 'New pet was added' });
+    res.status(201).json({ msg: 'New pet was added' });
     return;
   }
   res.json(rezObj);
@@ -41,20 +41,19 @@ petsRoutes.post('/', async (req, res) => {
 petsRoutes.delete('/:id', async (req, res) => {
   const id = +req.params.id;
   const sql = `UPDATE ${tableName} SET isArchived=1 WHERE pets_id=? LIMIT 1`;
-  const [rows, error] = await dbQueryWithData(sql, [id]);
+  const [apdRezObj, error] = await dbQueryWithData(sql, [id]);
   if (error) {
     res.status(500).json({ error: 'Internal server error' });
     return;
   }
-  if (rows.affectedRows === 0) {
+  if (apdRezObj.affectedRows === 0) {
     res.status(404).json({ msg: 'This id does not exist' });
     return;
   }
-  if (rows.affectedRows === 1) {
-    res.json({ msg: 'Book deleted' });
+  if (apdRezObj.affectedRows === 1) {
+    res.status(200).json({ msg: `Pet with id ${id} was deleted` });
     return;
   }
-  res.json(rows);
 });
 
 // export

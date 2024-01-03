@@ -19,5 +19,25 @@ medsRoutes.get('/', async (req, res) => {
 
 // POST įrašys vieną vaistą į 'medications' db.
 
+medsRoutes.post('/', async (req, res) => {
+  const { name, description } = req.body;
+  const newMedoc = [name, description];
+  const sql = `INSERT INTO ${tableName} (name, description) VALUES (?, ?)`;
+  const [newMedicObj, error] = await dbQueryWithData(sql, newMedoc);
+  if (error) {
+    res.status(500).json({ error: 'Internal server error' });
+    return;
+  }
+  if (newMedicObj.affectedRows === 0) {
+    res.status(400).json({ msg: 'Something went wrong' });
+    return;
+  }
+  if (newMedicObj.affectedRows === 1) {
+    res.status(201).json({ msg: 'New medication was added' });
+    return;
+  }
+  res.json(newMedicObj);
+});
+
 // export routes
 module.exports = medsRoutes;

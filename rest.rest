@@ -1,5 +1,7 @@
 GET http://localhost:3000
 
+##### PETS =========================================
+
 ### grazina visus pets
 GET http://localhost:3000/v1/api/pets
 
@@ -14,9 +16,33 @@ Content-Type: application/json
   }
 
 ### istrina viena pets padarant ji isArchived = 1
-DELETE http://localhost:3000/v1/api/pets/8
+DELETE http://localhost:3000/v1/api/pets/2
 
-#####
+##### MEDICATION ===========================================
 
 ### grazina visus medication
 GET http://localhost:3000/v1/api/meds
+
+### pridedu viena vaista
+POST http://localhost:3000/v1/api/meds
+Content-Type: application/json
+
+{
+  "name": "Aspirinas",
+  "description": "Nuo anginos"
+}
+
+###### LOGS ==============================================
+
+### grazina viena logs apjungta su pets lentele
+GET http://localhost:3000/v1/api/logs/petId/2
+
+### prideda viena logs 
+POST http://localhost:3000/v1/api/logs
+Content-Type: application/json
+
+{
+  "pet_id": 2, 
+  "description": "has very big temperature", 
+  "status": "sick"
+}

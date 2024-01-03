@@ -2,8 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const mysql = require('mysql2/promise');
-const { dbConfig } = require('./config');
+const testConnection = require('./routes/testRoutes');
 
 const app = express();
 
@@ -28,24 +27,10 @@ const prescRoutes = require('./routes/prescRoutes');
 // panaudoju routes
 app.use('/v1/api/pets', petsRoutes);
 app.use('/', logsRoutes);
-app.use('/', medsRoutes);
+app.use('/v1/api/meds', medsRoutes);
 app.use('/', prescRoutes);
 
-// connect
-async function testConnection() {
-  let conn;
-  try {
-    conn = await mysql.createConnection(dbConfig);
-    await conn.query('SELECT * FROM pets LIMIT 1');
-    console.log('Succesfuly connected to mysql ');
-  } catch (error) {
-    console.log('testConnection failed, did you start XAMPP mate???');
-    console.log('error ===', error);
-  } finally {
-    if (conn) conn.end();
-  }
-}
-testConnection();
+// testConnection();
 
 // app.listen(PORT);
 app.listen(PORT, () => {

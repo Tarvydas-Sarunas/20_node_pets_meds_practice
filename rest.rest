@@ -1,5 +1,22 @@
 GET http://localhost:3000
 
-### grazinavisus pets
+### grazina visus pets
 GET http://localhost:3000/v1/api/pets
 
+### iraso nauja augintini
+POST http://localhost:3000/v1/api/pets
+Content-Type: application/json
+
+  {
+    "pets_name": "Dogis",
+    "pets_dob": "2015-11-10T22:00:00.000Z",
+    "client_email": "dogiman@email.com"
+  }
+
+### istrina viena pets padarant ji isArchived = 1
+DELETE http://localhost:3000/v1/api/pets/8
+
+#####
+
+### grazina visus medication
+GET http://localhost:3000/v1/api/meds

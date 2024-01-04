@@ -1,5 +1,6 @@
 const express = require('express');
 const { dbQueryWithData } = require('../helper');
+const { checkPetBody } = require('../middleware');
 const petsRoutes = express.Router();
 
 // ROUTES
@@ -7,7 +8,8 @@ const petsRoutes = express.Router();
 const tableName = 'pets';
 // get / - grazina visus gyvunus
 petsRoutes.get('/', async (req, res) => {
-  const sql = `SELECT * FROM ${tableName} WHERE isArchived=0`;
+  // const sql = `SELECT * FROM ${tableName} WHERE isArchived=0`;
+  const sql = `SELECT pets_name, pets_id, pets_dob, client_email FROM ${tableName} WHERE isArchived = 0`;
   const [petsARR, error] = await dbQueryWithData(sql);
   if (error) {
     res.status(500).json({ error: 'Internal server error' });
@@ -17,9 +19,15 @@ petsRoutes.get('/', async (req, res) => {
 });
 
 // POST įrašo vieną augintinį į 'pets' db;
-petsRoutes.post('/', async (req, res) => {
+petsRoutes.post('/', checkPetBody, async (req, res) => {
   const { pets_name, pets_dob, client_email } = req.body;
   const newPets = [pets_name, pets_dob, client_email];
+
+  // if ((await checkPetBody(req.body)) === false) {
+  //   res.status(400).json('Check your inputs');
+  //   return;
+  // }
+
   const sql = `INSERT INTO ${tableName} (pets_name, pets_dob, client_email) VALUES (?, ?, ?)`;
   const [rezObj, error] = await dbQueryWithData(sql, newPets);
   if (error) {

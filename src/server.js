@@ -28,7 +28,7 @@ const prescRoutes = require('./routes/prescRoutes');
 app.use('/v1/api/pets', petsRoutes);
 app.use('/v1/api/logs', logsRoutes);
 app.use('/v1/api/meds', medsRoutes);
-app.use('/', prescRoutes);
+app.use('/v1/api/presc', prescRoutes);
 
 // testConnection();
 

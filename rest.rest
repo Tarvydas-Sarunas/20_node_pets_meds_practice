@@ -10,9 +10,9 @@ POST http://localhost:3000/v1/api/pets
 Content-Type: application/json
 
   {
-    "pets_name": "Dogis",
+    "pets_name": "",
     "pets_dob": "2015-11-10T22:00:00.000Z",
-    "client_email": "dogiman@email.com"
+    "client_email": "bubis@email.com"
   }
 
 ### istrina viena pets padarant ji isArchived = 1
@@ -45,4 +45,19 @@ Content-Type: application/json
   "pet_id": 2, 
   "description": "has very big temperature", 
   "status": "sick"
+}
+
+###### Presc ==============================================
+
+### grazina viena logs apjungta su pets ir medication lentele
+GET http://localhost:3000/v1/api/presc/petId/3
+
+### post viena nauja prescription
+POST http://localhost:3000/v1/api/presc
+Content-Type: application/json
+
+{
+  "med_id": 2, 
+  "pet_id": 3, 
+  "comment": "labai sunkiai serga"
 }

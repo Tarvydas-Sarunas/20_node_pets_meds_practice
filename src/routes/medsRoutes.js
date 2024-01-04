@@ -1,5 +1,6 @@
 const express = require('express');
 const { dbQueryWithData } = require('../helper');
+const { checkMedsBody } = require('../middleware');
 const medsRoutes = express.Router();
 
 // ROUTES
@@ -19,7 +20,7 @@ medsRoutes.get('/', async (req, res) => {
 
 // POST įrašys vieną vaistą į 'medications' db.
 
-medsRoutes.post('/', async (req, res) => {
+medsRoutes.post('/', checkMedsBody, async (req, res) => {
   const { name, description } = req.body;
   const newMedoc = [name, description];
   const sql = `INSERT INTO ${tableName} (name, description) VALUES (?, ?)`;

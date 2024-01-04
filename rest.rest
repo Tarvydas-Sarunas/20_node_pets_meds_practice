@@ -10,9 +10,9 @@ POST http://localhost:3000/v1/api/pets
 Content-Type: application/json
 
   {
-    "pets_name": "",
+    "pets_name": "Miki",
     "pets_dob": "2015-11-10T22:00:00.000Z",
-    "client_email": "bubis@email.com"
+    "client_email": "Miki@email.com"
   }
 
 ### istrina viena pets padarant ji isArchived = 1

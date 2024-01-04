@@ -1,12 +1,13 @@
 const express = require('express');
 const { dbQueryWithData } = require('../helper');
+const { checkLogsBody } = require('../middleware');
 const logsRoutes = express.Router();
 
 // ROUTES
 const table = 'logs';
 // GET/POST - /v1/api/logs/
 // GET paims vieno augintinio visus įrašus iš 'logs' ir juos apjungs (JOIN) su 'pets' lentele;
-logsRoutes.get('/petId/:id', async (req, res) => {
+logsRoutes.get('/petId/:id', checkLogsBody, async (req, res) => {
   const id = +req.params.id;
   const sql = `
 SELECT logs.logs_id, logs.description, logs.status, pets.pets_name, pets.pets_dob

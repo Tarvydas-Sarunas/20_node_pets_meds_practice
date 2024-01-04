@@ -23,10 +23,10 @@ petsRoutes.post('/', checkPetBody, async (req, res) => {
   const { pets_name, pets_dob, client_email } = req.body;
   const newPets = [pets_name, pets_dob, client_email];
 
-  // if ((await checkPetBody(req.body)) === false) {
-  //   res.status(400).json('Check your inputs');
-  //   return;
-  // }
+  if (res.errors && res.errors.length > 0) {
+    res.status(400).json(res.errors);
+    return;
+  }
 
   const sql = `INSERT INTO ${tableName} (pets_name, pets_dob, client_email) VALUES (?, ?, ?)`;
   const [rezObj, error] = await dbQueryWithData(sql, newPets);
